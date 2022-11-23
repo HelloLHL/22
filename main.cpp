@@ -5,14 +5,21 @@
 #include <version.h>
 #include <ThreadPool.h>
 #include <myTime.h>
+#include "practice.h"
+#include <myThread.h>
+#include <myAlgorithms.h>
 #include <iostream>
 using namespace std;
 
 
 int main()
 {
-    getCPPVersion();
-    myThreadPoolTest();
-    myTimeTest();
+    // getCPPVersion();
+    // myThreadPoolTest();
+    // myTimeTest();
+    // practiceTest();
+    // threadTest();
+    Solution myAlgorithms;
+    myAlgorithms.myTest();
     return 0;
 }
