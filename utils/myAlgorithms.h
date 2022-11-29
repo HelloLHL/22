@@ -128,6 +128,37 @@ public:
         reverse(nums.begin()+m, nums.end());
     }
 
+    // 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序
+    void moveZeroes(vector<int>& nums) {
+        int notZero = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums.at(i) == 0) {
+                continue;
+            }
+            nums[notZero++] = nums.at(i);
+        }
+
+        for (int i = notZero; i < nums.size(); ++i) {
+            nums[i] = 0;
+        }
+    }
+
+    // 给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列  ，请你从数组中找出满足相加之和等于目标数 target 的两个数
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int left = 0, right = numbers.size() - 1;
+        while (left < right) {
+            int sum = numbers.at(right) + numbers.at(left);
+            if (sum == target) {
+                break;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return vector<int>{left+1, right+1};
+    }
+
 
     void myTest() {
         /*
@@ -138,10 +169,15 @@ public:
 
         vector<int> nums = {-4,-1,0,3,10};
         vector<int> res = sortedSquares(nums);
-        */
+
         vector<int> nums = {1,2,3,4,5,6,7};
         rotate2(nums, 3);
         std::copy(nums.begin(),nums.end(), std::ostream_iterator<int>(std::cout, " "));
+         */
+        vector<int> nums = {2,7,11,15};
+        vector<int> res = twoSum(nums, 9);
+        std::copy(res.begin(),res.end(), std::ostream_iterator<int>(std::cout, " "));
+
 
     }
 
