@@ -6,6 +6,7 @@
 #define DAILY_PRACTICE_MYALGORITHMS_H
 #include <vector>
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 
@@ -89,14 +90,58 @@ public:
         return ans;
     }
 
+    // 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序
+    vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0, right = n - 1, pos = n - 1;
+        vector<int> res(n);
+        while (left <= right) {
+            if (pow(nums.at(left),2) < pow(nums.at(right), 2)) {
+                res.at(pos) = pow(nums.at(right),2);
+                --right;
+            } else {
+                res.at(pos) = pow(nums.at(left),2);
+                ++left;
+            }
+            --pos;
+        }
+        return res;
+    }
+
+    // 给你一个数组，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> res(n);
+        for (int i = 0; i < n; ++i) {
+            int pos = (i+k) % n;
+            res.at(pos) = nums.at(i);
+        }
+        nums.assign(res.begin(), res.end());
+        return;
+    }
+
+    void rotate2(vector<int>& nums, int k) {
+        int n = nums.size();
+        int m = k % n;
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.begin()+m);
+        reverse(nums.begin()+m, nums.end());
+    }
+
+
     void myTest() {
         /*
         str = "fffftt";
         vector<int> nums = {-1,0,3,5,9,12};
         int res = search(nums, 2);
         std::cout<<res<<endl;
-         */
-        vector<int> nums = {1,3,5,6};
+
+        vector<int> nums = {-4,-1,0,3,10};
+        vector<int> res = sortedSquares(nums);
+        */
+        vector<int> nums = {1,2,3,4,5,6,7};
+        rotate2(nums, 3);
+        std::copy(nums.begin(),nums.end(), std::ostream_iterator<int>(std::cout, " "));
 
     }
 
