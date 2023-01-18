@@ -115,10 +115,12 @@ int producerAndConsumer1() {
 }
 
 
-int practiceTest() {
-    lambda_expression_capture();
-    producerAndConsumer();
 
+
+int practiceTest() {
+    setValue();
+    // lambda_expression_capture();
+    // producerAndConsumer();
 }
 
 #endif //DAILY_PRACTICE_PRACTICE_H

@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <unordered_set>
+#include <set>
 using namespace std;
 
 
@@ -227,10 +229,58 @@ public:
         return head;
     }
 
+    // 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+    int lengthOfLongestSubstring(string s) {
+        unordered_set<char> occ;
+        int right = -1; //  右指针，相当于在字符串左侧，还未移动
+        int n = s.size();
+        int ans = 0;    //  最长度
+        for (int i = 0; i < n; ++i) {
+            if (i != 0) {
+                // 左指针向右移动一位，移除一个字符
+                occ.erase(s.at(i-1));
+            }
+            while (right + 1 < n && occ.count(s.at(right + 1)) == 0) {
+                occ.insert(s.at(right + 1));
+                right++;
+            }
+            ans = std::max(ans, (int)occ.size());
+        }
+        return ans;
+    }
+
+    // 给你两个字符串 s1 和 s2 ，写一个函数来判断 s2 是否包含 s1 的排列。如果是，返回 true ；否则，返回 false 。
+    bool checkInclusion(string s1, string s2) {
+        unordered_multiset<char> s1_set;
+        unordered_multiset<char> s2_set;
+        int n = s1.size();
+        for (int i = 0; i < n; ++i) {
+            s1_set.insert(s1.at(i));
+            s2_set.insert(s2.at(i));
+        }
+        int left = 0;
+        while (n <= s2.size()) {
+            std::copy(s1_set.begin(), s1_set.end(), std::ostream_iterator<char>(std::cout, " "));
+            std::cout<<std::endl;
+            std::copy(s2_set.begin(), s2_set.end(), std::ostream_iterator<char>(std::cout, " "));
+            std::cout<<std::endl;
+            std::cout<< " -------"<<std::endl;
+
+            if (s1_set == s2_set) {
+                return true;
+            }
+            if (n == s2.size()) {
+                break;
+            }
+            s2_set.erase(s2.at(left));
+            s2_set.insert(s2.at(n));
+            n++;
+            left++;
+        }
+        return false;
+    }
+
 public:
-
-
-
     void myTest() {
         /*
         str = "fffftt";
@@ -248,11 +298,15 @@ public:
         vector<int> nums = {2,7,11,15};
         vector<int> res = twoSum(nums, 9);
         std::copy(res.begin(),res.end(), std::ostream_iterator<int>(std::cout, " "));
-        */
 
         vector<char> s = {'h', 'e', 'l', 'l', 'o'};
         reverseString(s);
         std::copy(s.begin(), s.end(), std::ostream_iterator<char>(std::cout, " "));
+
+        string s = "pwwkew";
+        cout << lengthOfLongestSubstring(s) << endl;
+        */
+        cout << checkInclusion("abc", "dcda")<<endl;
 
 
     }

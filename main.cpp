@@ -17,9 +17,9 @@ int main()
     // getCPPVersion();
     // myThreadPoolTest();
     // myTimeTest();
-    // practiceTest();
+    practiceTest();
     // threadTest();
-    Solution myAlgorithms;
-    myAlgorithms.myTest();
+    // Solution myAlgorithms;
+    // myAlgorithms.myTest();
     return 0;
 }
