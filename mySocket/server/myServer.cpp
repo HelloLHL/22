@@ -40,20 +40,16 @@ int socketServerMain() {
 
     for (;;) {
         int ConnectFD = accept(SockerFD, NULL, NULL);
-        std::cout << ConnectFD << std::endl;
         if (0 > ConnectFD) {
             perror("accept fail");
             close(SockerFD);
             exit(EXIT_FAILURE);
         }
 
-        std::cout << "accept success" << std::endl;
         int writeSize = 0;
         size_t totalWrite = 0;
         while (totalWrite < sizeof(hello)) {
             writeSize = write(ConnectFD, hello + totalWrite, sizeof(hello) - totalWrite);
-            std::cout << "-----" << errno << std::endl;
-
             if (-1 == writeSize) {
                 perror("write fail");
                 close(ConnectFD);
