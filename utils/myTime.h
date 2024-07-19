@@ -72,21 +72,22 @@ template<typename T>
 T myTime::getRandNum(const T &min, const T &max) {
     std::default_random_engine dre(getCurrentTimeStamp());
 
-    if (is_same<T, int>::value) {
+    if constexpr (std::is_integral<T>::value) {
         std::uniform_int_distribution<T> di(min, max);
         return di(dre);
-    } else if(is_same<T, double>::value) {
+    } else if constexpr (std::is_pointer<T>::value) {
         std::uniform_real_distribution<T> di(min, max);
         return di(dre);
     }
-    return 0;
+    return T{};
 }
 
 int myTimeTest() {
     myTime timeTest;
     auto tp1 = timeTest.makeTimePoint(2010,01,01,00,00);
     std::cout<<timeTest.getCurrentTimeStamp()<<std::endl;
-    cout<< timeTest.getRandNum(0.1, 0.8)<< endl;
+    //cout<< timeTest.getRandNum(0.1, 0.8)<< endl;
+    cout<< timeTest.getRandNum(1, 8)<< endl;
 }
 
 #endif //DAILY_PRACTICE_MYTIME_H
